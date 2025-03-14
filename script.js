@@ -90,7 +90,41 @@ function draw() {
   // NIGHT STUFF //
   // Night
   drawBeizerCurve(`rgb(0, 20, 65)`, `fill`, 500, 600, `rgb(0, 58, 184)`, 500);
+  
+  // Moon
+  drawCircle(250, 550, 30, `rgb(134, 134, 134)`, `fill`);
 
+  // Stars
+  ctx.save(); // Save current canvas state
+  ctx.translate(250, 550); // Translate canvas to moon
+  ctx.rotate((greyStarAngle * Math.PI) / 180); // Rotate around moon
+  drawStar(410, 0, `rgba(255, 255, 255, 0.5)`, `fill`); // Draw grey star in revelance to the rotation
+  drawStar(410, 0, `rgb(255, 255, 255)`, `stroke`); // Draw grey star outline in revelance to the rotation
+  ctx.restore(); // Restore the original canvas state
+
+
+  ctx.save();
+  ctx.translate(250, 550);
+  ctx.rotate((yellowStarAngle * Math.PI) / 180);
+  drawStar(310, 0, `rgba(255, 255, 0, 0.5)`, `fill`); // yellow star
+  drawStar(310, 0, `rgb(255, 255, 0)`, `stroke`); // yellow star outline
+  ctx.restore();
+
+  ctx.save();
+  ctx.translate(250, 550);
+  ctx.rotate((redStarAngle * Math.PI) / 180);
+  drawStar(210, 0, `rgba(255, 0, 0, 0.5)`, `fill`); // red star
+  drawStar(210, 0, `rgb(255, 0, 0)`, `stroke`); // red star outline
+  ctx.restore();
+
+  ctx.save();
+  ctx.translate(250, 550);
+  ctx.rotate((blueStarAngle * Math.PI) / 180);
+  drawStar(110, 0, `rgba(0, 238, 255, 0.5)`, `fill`); // blue star
+  drawStar(110, 0, `rgb(0, 238, 255)`, `stroke`); // blue star outline
+  ctx.restore();
+  
+  
   // Comets 
   // spread comets drawn first so they dont overlap the other comets with their larger trails
   drawComet(blackWhiteComet.x, blackWhiteComet.y, `rgba(0, 0, 0, 0.5)`, "spread", `rgba(255, 255, 255, 0.5)`); // black-white spread comet
@@ -112,13 +146,13 @@ function draw() {
   drawComet(greenComet.x, greenComet.y, `rgba(164, 255, 146, 0.7)`, "straight"); // green straight comet
   greenComet.animate(6.5, 620, 270);
 
-  ctx.save();
-  ctx.translate(250, 550);
-  ctx.rotate((greyStarAngle * Math.PI) / 180);
-  ctx.translate(435, 10);
-  ctx.rotate((greyAngle * Math.PI) / 180);
-  drawComet(-40, -40, `rgba(255, 255, 255, 0.6)`, "curve"); // grey curve comet
-  ctx.restore();
+  ctx.save(); // Save current canvas state
+  ctx.translate(250, 550); // Translate canvas to moon
+  ctx.rotate((greyStarAngle * Math.PI) / 180); // Rotate around moon
+  ctx.translate(435, 10); // Translate canvas to grey star
+  ctx.rotate((greyAngle * Math.PI) / 180); // Rotate around grey star
+  drawComet(-40, -40, `rgba(255, 255, 255, 0.6)`, "curve"); // Draw grey curve comet in revelance to grey star
+  ctx.restore(); // Restore the original canvas state
 
 
   ctx.save();
@@ -156,39 +190,6 @@ function draw() {
 
   addAllAngles();
 
-
-  // Moon
-  drawCircle(250, 550, 30, `rgb(134, 134, 134)`, `fill`);
-
-  // Stars
-  ctx.save();
-  ctx.translate(250, 550);
-  ctx.rotate((greyStarAngle * Math.PI) / 180);
-  drawStar(410, 0, `rgba(255, 255, 255, 0.5)`, `fill`); // grey star
-  drawStar(410, 0, `rgb(255, 255, 255)`, `stroke`); // grey star outline
-  ctx.restore();
-
-
-  ctx.save();
-  ctx.translate(250, 550);
-  ctx.rotate((yellowStarAngle * Math.PI) / 180);
-  drawStar(310, 0, `rgba(255, 255, 0, 0.5)`, `fill`); // yellow star
-  drawStar(310, 0, `rgb(255, 255, 0)`, `stroke`); // yellow star outline
-  ctx.restore();
-
-  ctx.save();
-  ctx.translate(250, 550);
-  ctx.rotate((redStarAngle * Math.PI) / 180);
-  drawStar(210, 0, `rgba(255, 0, 0, 0.5)`, `fill`); // red star
-  drawStar(210, 0, `rgb(255, 0, 0)`, `stroke`); // red star outline
-  ctx.restore();
-
-  ctx.save();
-  ctx.translate(250, 550);
-  ctx.rotate((blueStarAngle * Math.PI) / 180);
-  drawStar(110, 0, `rgba(0, 238, 255, 0.5)`, `fill`); // blue star
-  drawStar(110, 0, `rgb(0, 238, 255)`, `stroke`); // blue star outline
-  ctx.restore();
 
   // DAY STUFF //
   // Day
