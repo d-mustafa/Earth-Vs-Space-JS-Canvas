@@ -451,6 +451,6 @@ function rotateComet(starAngle, cometAngle, cometX, color) {
   ctx.rotate((starAngle * Math.PI) / 180); // Rotate around moon
   ctx.translate(cometX, 10); // Translate canvas to star
   ctx.rotate((cometAngle * Math.PI) / 180); // Rotate around star
-  drawComet(-40, -40, ${color}, "curve"); // Draw the comet in revelance to the star
+  drawComet(-40, -40, color, "curve"); // Draw the comet in revelance to the star
   ctx.restore(); // Restore the original canvas state
 }
