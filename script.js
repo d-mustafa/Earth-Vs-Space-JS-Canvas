@@ -427,7 +427,7 @@ function drawCircle(x, y, radius, color, type) {
 
 // Convenience Functions
 
-function fillStyleOrStrokeStyle(type, color) {
+function fillStyleOrStrokeStyle(type, color) { // quick check to use fill style or stroke style
   if(type == 'fill') {
     return ctx.fillStyle = color;
   } else if(type == 'stroke') {
@@ -435,7 +435,7 @@ function fillStyleOrStrokeStyle(type, color) {
   }
 }
 
-function fillOrStroke(type) {
+function fillOrStroke(type) { // quick check to fill or stroke the drawing
   if(type == 'fill') {
     return ctx.fill();
   } else if(type == 'stroke') {
@@ -450,8 +450,31 @@ function addAllAngles() {
   blueAngle += 3;
   darkGreyAngle += 1.5;
 
-  greyStarAngle++;
-  yellowStarAngle += 0.75;
+  if (greyStarAngle >= 360) {
+    greyStarAngle = 0;
+  }
+  if (yellowStarAngle >= 360) {
+    yellowStarAngle = 0;
+  }
+  greyStarAngle += speedUpAndSlowDownStar(`grey`);
+  yellowStarAngle += speedUpAndSlowDownStar(`yellow`);
   redStarAngle += 0.5;
   blueStarAngle += 0.25;
+}
+
+function speedUpAndSlowDownStar(star) {
+  // when these stars are off screen, they should move faster; when they're on screen, they should slow down
+  if (star == `grey`){
+    if (greyStarAngle > 320) {
+      return 10;
+    } else if (greyStarAngle > 260) {
+      return 0.25;
+    }
+  } else if (star == `yellow`) {
+    if (yellowStarAngle > 320) {
+      return 10;
+    } else if (yellowStarAngle > 250) {
+      return 0.75;
+    }
+  }
 }
