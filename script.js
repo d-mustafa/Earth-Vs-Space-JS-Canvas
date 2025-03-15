@@ -140,6 +140,7 @@ function draw() {
   ctx.restore(); // Restore the original canvas state
 
   addAllAngles();
+  console.log(`GreyStarAngle: ${greyStarAngle}`)
 
 
   // DAY STUFF //
@@ -391,42 +392,45 @@ function fillOrStroke(type) { // quick check to fill or stroke the drawing
 }
 
 function addAllAngles() {
+  // Comets
   greyAngle += 1.5
   yellowAngle += 2;
   redAngle += 2.5;
   blueAngle += 3;
   darkGreyAngle += 1.5;
   
+  // Reset Comet Angles if they go past 360
+  greyAngle = greyAngle % 360;
+  yellowAngle = yellowAngle % 360;
+  redAngle = redAngle % 360;
+  blueAngle = blueAngle % 360;
+  darkGreyAngle = darkGreyAngle % 360;
+
+  
+  // Stars
   greyStarAngle += speedUpAndSlowDownStar(`grey`);
   yellowStarAngle += speedUpAndSlowDownStar(`yellow`);
   redStarAngle += 0.5;
   blueStarAngle += 0.75;
 
-  if (greyStarAngle >= 360) {
-    greyStarAngle = 0;
-  }
-  if (yellowStarAngle >= 360) {
-    yellowStarAngle = 0;
-  }
-  if (redStarAngle >= 360) {
-    redStarAngle = 0;
-  }
-  if (blueStarAngle >= 360) {
-    blueStarAngle = 0;
-  }
+  // Reset Star Angles if they go past 360
+  greyStarAngle = greyStarAngle % 360;
+  yellowStarAngle = yellowStarAngle % 360;
+  redStarAngle = redStarAngle % 360;
+  blueStarAngle = blueStarAngle % 360;
 }
 
 function speedUpAndSlowDownStar(star) {
   // when these stars are off screen, they should move faster; when they're on screen, they should slow down
-  if (star == `grey`){
+  if (star === `grey`){
     if ((greyStarAngle >= 0 && greyStarAngle <= 240) || (greyStarAngle >= 340 && greyStarAngle <= 360)) {
-      return 2.5;
+      return 3;
     }
     else if (greyStarAngle > 240 && greyStarAngle < 340) {
       return 0.1;
     }
   }
-  else if (star == `yellow`) {
+  else if (star === `yellow`) {
     if ((yellowStarAngle >= 0 && yellowStarAngle <= 220) || (yellowStarAngle >= 355 && yellowStarAngle <= 360)) {
       return 2.5;
     }
@@ -434,4 +438,6 @@ function speedUpAndSlowDownStar(star) {
       return 0.25;
     }
   }
+
+  return 1; // Default speed
 }
