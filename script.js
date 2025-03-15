@@ -298,7 +298,7 @@ function drawComet(x, y, trailColor, trailType, trailColor2) {
 
 
 function drawStar(x, y, color, type){
-  fillStyleOrStrokeStyle(type);
+  fillStyleOrStrokeStyle(type, color);
   ctx.beginPath();
   ctx.moveTo(x, y);
   ctx.lineTo(x+20, y);
@@ -416,7 +416,7 @@ function drawBeizerCurve(color, type, x, y, color2, gradx) { // x & y are option
 }
 
 function drawCircle(x, y, radius, color, type) {
-  fillStyleOrStrokeStyle(type);
+  fillStyleOrStrokeStyle(type, color);
 
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, 2 * Math.PI);
@@ -427,7 +427,7 @@ function drawCircle(x, y, radius, color, type) {
 
 // Convenience Functions
 
-function fillStyleOrStrokeStyle(type) {
+function fillStyleOrStrokeStyle(type, color) {
   if(type == 'fill') {
     return ctx.fillStyle = color;
   } else if(type == 'stroke') {
