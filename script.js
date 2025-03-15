@@ -472,14 +472,14 @@ function addAllAngles() {
 function speedUpAndSlowDownStar(star) {
   // when these stars are off screen, they should move faster; when they're on screen, they should slow down
   if (star == `grey`){
-    if (greyStarAngle >= 270 && greyStarAngle < 320) {
+    if (greyStarAngle >= 270 && greyStarAngle <= 320) {
       return 0.25;
     } else {
       return 20;
     }
   }
   else if (star == `yellow`) {
-    if (yellowStarAngle >= 260 && yellowStarAngle < 320) {
+    if (yellowStarAngle >= 260 && yellowStarAngle <= 340) {
       return 0.75;
     } else {
       return 20;
