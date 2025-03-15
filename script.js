@@ -239,7 +239,27 @@ function draw() {
 beginAnimation();
 
 
-// draw Functions
+// Draw Functions
+function rotateStar(starAngle, starX, starColor) {
+  ctx.save(); // Save current canvas state
+  ctx.translate(250, 550); // Translate canvas to moon
+  ctx.rotate((starAngle * Math.PI) / 180); // Rotate around moon
+  drawStar(starX, 0, `rgba(${starColor}, 0.5)`, `fill`); // Draw star in revelance to the rotation
+  drawStar(starX, 0, `rgb(${starColor})`, `stroke`); // Draw star outline in revelance to the rotation
+  ctx.restore(); // Restore the original canvas state
+}
+
+
+function rotateComet(starAngle, cometAngle, cometX, color) {
+  ctx.save(); // Save current canvas state
+  ctx.translate(250, 550); // Translate canvas to moon
+  ctx.rotate((starAngle * Math.PI) / 180); // Rotate around moon
+  ctx.translate(cometX, 10); // Translate canvas to star
+  ctx.rotate((cometAngle * Math.PI) / 180); // Rotate around star
+  drawComet(-40, -40, color, "curve"); // Draw the comet in revelance to the star
+  ctx.restore(); // Restore the original canvas state
+}
+
 
 function drawComet(x, y, trailColor, trailType, trailColor2) {
   // trail
@@ -434,23 +454,4 @@ function addAllAngles() {
   yellowStarAngle += 0.75;
   redStarAngle += 0.5;
   blueStarAngle += 0.25;
-}
-
-function rotateStar(starAngle, starX, starColor) {
-  ctx.save(); // Save current canvas state
-  ctx.translate(250, 550); // Translate canvas to moon
-  ctx.rotate((starAngle * Math.PI) / 180); // Rotate around moon
-  drawStar(starX, 0, `rgba(${starColor}, 0.5)`, `fill`); // Draw star in revelance to the rotation
-  drawStar(starX, 0, `rgb(${starColor})`, `stroke`); // Draw star outline in revelance to the rotation
-  ctx.restore(); // Restore the original canvas state
-}
-
-function rotateComet(starAngle, cometAngle, cometX, color) {
-  ctx.save(); // Save current canvas state
-  ctx.translate(250, 550); // Translate canvas to moon
-  ctx.rotate((starAngle * Math.PI) / 180); // Rotate around moon
-  ctx.translate(cometX, 10); // Translate canvas to star
-  ctx.rotate((cometAngle * Math.PI) / 180); // Rotate around star
-  drawComet(-40, -40, color, "curve"); // Draw the comet in revelance to the star
-  ctx.restore(); // Restore the original canvas state
 }
