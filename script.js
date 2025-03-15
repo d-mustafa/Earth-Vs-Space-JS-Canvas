@@ -148,7 +148,7 @@ function draw() {
   drawComet(greenComet.x, greenComet.y, `rgba(164, 255, 146, 0.7)`, "straight"); // green straight comet
   greenComet.animate(6.5, 620, 270);
 
-  rotateComet(starAngle, cometAngle, cometX, color);
+  //rotateComet(starAngle, cometAngle, cometX, color);
   rotateComet(greyStarAngle, greyAngle, 435, `rgba(255, 255, 255, 0.6)`);
   //ctx.save(); // Save current canvas state
   //ctx.translate(250, 550); // Translate canvas to moon
