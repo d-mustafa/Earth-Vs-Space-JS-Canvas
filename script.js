@@ -278,11 +278,7 @@ function drawComet(x, y, trailColor, trailType, trailColor2) {
 
 
 function drawStar(x, y, color, type){
-  if(type == 'fill') {
-    ctx.fillStyle = color;
-  } else if(type == 'stroke') {
-    ctx.strokeStyle = color;
-  }
+  fillStyleOrStrokeStyle(type);
   ctx.beginPath();
   ctx.moveTo(x, y);
   ctx.lineTo(x+20, y);
@@ -400,11 +396,7 @@ function drawBeizerCurve(color, type, x, y, color2, gradx) { // x & y are option
 }
 
 function drawCircle(x, y, radius, color, type) {
-  if(type == 'fill') {
-    ctx.fillStyle = color;
-  } else if(type == 'stroke') {
-    ctx.strokeStyle = color;
-  }
+  fillStyleOrStrokeStyle(type);
 
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, 2 * Math.PI);
@@ -415,11 +407,19 @@ function drawCircle(x, y, radius, color, type) {
 
 // Convenience Functions
 
+function fillStyleOrStrokeStyle(type) {
+  if(type == 'fill') {
+    return ctx.fillStyle = color;
+  } else if(type == 'stroke') {
+    return ctx.strokeStyle = color;
+  }
+}
+
 function fillOrStroke(type) {
   if(type == 'fill') {
-    ctx.fill();
+    return ctx.fill();
   } else if(type == 'stroke') {
-    ctx.stroke();
+    return ctx.stroke();
   }
 }
 
