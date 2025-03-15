@@ -140,7 +140,6 @@ function draw() {
   ctx.restore(); // Restore the original canvas state
 
   addAllAngles();
-  console.log(`GreyStarAngle: ${greyStarAngle}`)
 
 
   // DAY STUFF //
@@ -423,21 +422,22 @@ function addAllAngles() {
 function speedUpAndSlowDownStar(star) {
   // when these stars are off screen, they should move faster; when they're on screen, they should slow down
   if (star === `grey`){
-    if ((greyStarAngle >= 0 && greyStarAngle <= 240) || (greyStarAngle >= 340 && greyStarAngle <= 360)) {
-      return 3;
+    if ((greyStarAngle >= 0 && greyStarAngle <= 250) || (greyStarAngle >= 340 && greyStarAngle <= 360)) {
+      return 2;
     }
-    else if (greyStarAngle > 240 && greyStarAngle < 340) {
+    else if (greyStarAngle > 250 && greyStarAngle < 340) {
       return 0.1;
     }
   }
   else if (star === `yellow`) {
-    if ((yellowStarAngle >= 0 && yellowStarAngle <= 220) || (yellowStarAngle >= 355 && yellowStarAngle <= 360)) {
-      return 2.5;
+    if ((yellowStarAngle >= 0 && yellowStarAngle <= 230) || (yellowStarAngle >= 355 && yellowStarAngle <= 360)) {
+      return 2;
     }
-    else if (yellowStarAngle > 220 && yellowStarAngle < 355) {
+    else if (yellowStarAngle > 230 && yellowStarAngle < 355) {
       return 0.25;
     }
   }
 
+  console.log(`something went wrong\n greyStarAngle: ${greyStarAngle}\n yellowStarAngle: ${yellowStarAngle}`);
   return 1; // Default speed
 }
