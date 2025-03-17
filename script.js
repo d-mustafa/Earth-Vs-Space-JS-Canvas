@@ -94,52 +94,65 @@ function draw() {
   drawCircle(250, 550, 30, `rgb(134, 134, 134)`, `fill`);
 
   // Stars
-  rotateStar(greyStarAngle, 410, `255, 255, 255`); // Grey Star
+  rotateAndDrawStar(greyStarAngle, 410, `255, 255, 255`); // Grey Star
 
-  rotateStar(yellowStarAngle, 310, `255, 255, 0`); // Yellow Star
+  rotateAndDrawStar(yellowStarAngle, 310, `255, 255, 0`); // Yellow Star
 
-  rotateStar(redStarAngle, 210, `255, 0, 0`); // Red Star
+  rotateAndDrawStar(redStarAngle, 210, `255, 0, 0`); // Red Star
 
-  rotateStar(blueStarAngle, 110, `0, 238, 255`); // Blue Star
+  rotateAndDrawStar(blueStarAngle, 110, `0, 238, 255`); // Blue Star
   
   
   // Comets 
   // spread comets drawn first so they dont overlap the other comets with their larger trails
-  drawComet(blackWhiteComet.x, blackWhiteComet.y, `rgba(0, 0, 0, 0.5)`, "spread", `rgba(255, 255, 255, 0.5)`); // black-white spread comet
-  blackWhiteComet.animate(3.5, 400, 0);
 
-  drawComet(yellowBlueComet.x, yellowBlueComet.y, `rgba(255, 217, 0, 0.7)`, "spread", `rgba(0, 183, 255, 0.5)`); // yellow-blue spread comet
-  yellowBlueComet.animate(3, 500, 150);
+  // black-white spread comet
+  drawComet(blackWhiteComet.x, blackWhiteComet.y, `rgba(0, 0, 0, 0.5)`, "spread", `rgba(255, 255, 255, 0.5)`);
+  blackWhiteComet.animate(3.5*cometSpeedMulti, 400, 0);
 
-  drawComet(blueGreenComet.x, blueGreenComet.y, `rgb(0, 153, 255)`, "spread", `rgb(0, 255, 64)`); // blue-green spread comet
-  blueGreenComet.animate(4, 670, 300);
+  // yellow-blue spread comet
+  drawComet(yellowBlueComet.x, yellowBlueComet.y, `rgba(255, 217, 0, 0.7)`, "spread", `rgba(0, 183, 255, 0.5)`);
+  yellowBlueComet.animate(3*cometSpeedMulti, 500, 150);
 
-  
-  drawComet(blueComet.x, blueComet.y, `rgba(0, 153, 255, 0.9)`, "straight"); // blue straight comet
-  blueComet.animate(7, 420, 20);
-  
-  drawComet(yellowComet.x, yellowComet.y, `rgba(255, 255, 146, 0.8)`, "straight"); // yellow straight comet
-  yellowComet.animate(6, 470, 70);
-
-  drawComet(greenComet.x, greenComet.y, `rgba(164, 255, 146, 0.7)`, "straight"); // green straight comet
-  greenComet.animate(6.5, 620, 270);
+  // blue-green spread comet
+  drawComet(blueGreenComet.x, blueGreenComet.y, `rgb(0, 153, 255)`, "spread", `rgb(0, 255, 64)`);
+  blueGreenComet.animate(4*cometSpeedMulti, 670, 300);
 
   
-  rotateComet(greyStarAngle, greyAngle, 435, `rgba(255, 255, 255, 0.6)`);
-
-  rotateComet(yellowStarAngle, yellowAngle, 335, `rgba(255, 255, 146, 0.7)`);
-
-  rotateComet(redStarAngle, redAngle, 235, `rgba(255, 146, 146, 0.6)`);
+  // blue straight comet
+  drawComet(blueComet.x, blueComet.y, `rgba(0, 153, 255, 0.9)`, "straight");
+  blueComet.animate(7*cometSpeedMulti, 420, 20);
   
-  rotateComet(blueStarAngle, blueAngle, 135, `rgba(0, 153, 255, 0.9)`);
+  // yellow straight comet
+  drawComet(yellowComet.x, yellowComet.y, `rgba(255, 255, 146, 0.8)`, "straight");
+  yellowComet.animate(6*cometSpeedMulti, 470, 70);
+
+  // green straight comet
+  drawComet(greenComet.x, greenComet.y, `rgba(164, 255, 146, 0.7)`, "straight");
+  greenComet.animate(6.5*cometSpeedMulti, 620, 270);
+
   
+  // grey curve comet
+  rotateAndDrawCurveComet(greyStarAngle, greyAngle, 435, `rgba(255, 255, 255, 0.6)`);
+
+  // yellow curve comet
+  rotateAndDrawCurveComet(yellowStarAngle, yellowAngle, 335, `rgba(255, 255, 146, 0.7)`);
+
+  // red curve comet
+  rotateAndDrawCurveComet(redStarAngle, redAngle, 235, `rgba(255, 146, 146, 0.6)`);
+  
+  // blue curve comet
+  rotateAndDrawCurveComet(blueStarAngle, blueAngle, 135, `rgba(0, 153, 255, 0.9)`);
+  
+  // dark grey curve comet (doesn't quite fit into the rotateAndDrawCurveComet function as it doesn't orbit around a star)
   ctx.save(); // Save current canvas stae
   ctx.translate(250, 550); // Translate canvas to moon
   ctx.rotate((darkGreyAngle * Math.PI) / 180); // Rotate around moon
   drawComet(-40, -40, `rgba(255, 255, 255, 0.3)`, "curve"); // Draw dark grey curve comet in relevance to moon
   ctx.restore(); // Restore the original canvas state
 
-  addAllAngles();
+  // adds to the stars and comets angles to move them
+  animateStarsAndComets();
 
 
   // DAY STUFF //
@@ -153,10 +166,15 @@ function draw() {
   ctx.lineWidth = 1;
 
   drawBird(50, 30, 17, true); // top left bird
+
   drawBird(347, 36, 20); // top right bird
+
   drawBird(169, 93, 15, true); // top middle bird
+
   drawBird(255, 164, 20); // middle right bird
+
   drawBird(81, 258, 16, true); // bottom left bird
+  
   drawBird(168, 386, 16);  // bottom right bird
 
   // Clouds
@@ -164,20 +182,20 @@ function draw() {
   ctx.strokeStyle = `rgb(0, 0, 0)`;
   ctx.lineWidth = 1;
 
-  drawCloud(208, 140, `fill`); // top right cloud
+  drawCloud(208, 140, `fill`, stormy); // top right cloud
   drawCloud(208, 140, `stroke`); // top right cloud outline
 
-  drawCloud(50, 200, `fill`); // top left cloud
+  drawCloud(50, 200, `fill`, stormy); // top left cloud
   drawCloud(50, 200, `stroke`); // top left cloud outline
 
-  drawCloud(70, 80, `fill`); // middle cloud
+  drawCloud(70, 80, `fill`, stormy); // middle cloud
   drawCloud(70, 80, `stroke`); // middle cloud outline
 
-  drawCloud(150, 300, `fill`, true); // right storm-cloud
-  drawCloud(150, 300, `stroke`); // right storm-cloud outline
+  drawCloud(150, 300, `fill`, stormy); // bottom right cloud
+  drawCloud(150, 300, `stroke`); // bottom right cloud outline
 
-  drawCloud(50, 400, `fill`, true); // left storm-cloud
-  drawCloud(50, 400, `stroke`); // left storm-cloud outline
+  drawCloud(50, 400, `fill`, stormy); // bottom left cloud
+  drawCloud(50, 400, `stroke`); // bottom left cloud outline
 
 
   window.requestAnimationFrame(draw);
@@ -187,7 +205,7 @@ beginAnimation();
 
 
 // Draw Functions
-function rotateStar(starAngle, starX, starColor) {
+function rotateAndDrawStar(starAngle, starX, starColor) {
   ctx.save(); // Save current canvas state
   ctx.translate(250, 550); // Translate canvas to moon
   ctx.rotate((starAngle * Math.PI) / 180); // Rotate around moon
@@ -197,7 +215,7 @@ function rotateStar(starAngle, starX, starColor) {
 }
 
 
-function rotateComet(starAngle, cometAngle, cometX, color) {
+function rotateAndDrawCurveComet(starAngle, cometAngle, cometX, color) {
   ctx.save(); // Save current canvas state
   ctx.translate(250, 550); // Translate canvas to moon
   ctx.rotate((starAngle * Math.PI) / 180); // Rotate around moon
@@ -281,7 +299,7 @@ function drawCloud(x, y, type, stormy) {
   if (stormy) {
     // ThunderBolts (drawn before the cloud so they dont overlap the cloud)
     ctx.fillStyle = `rgb(238, 255, 0)`;
-    if (boltCounter > 25) {
+    if (boltCounter > boltSpeed) {
       boltCounter = 0;
       bolt *= -1;
     }
@@ -362,6 +380,7 @@ function drawBeizerCurve(color, type, x, y, color2, gradx) { // x & y are option
   }
 }
 
+
 function drawCircle(x, y, radius, color, type) {
   fillStyleOrStrokeStyle(type, color);
 
@@ -373,7 +392,6 @@ function drawCircle(x, y, radius, color, type) {
 
 
 // Convenience Functions
-
 function fillStyleOrStrokeStyle(type, color) { // quick check to use fill style or stroke style
   if(type == 'fill') {
     return ctx.fillStyle = color;
@@ -390,13 +408,13 @@ function fillOrStroke(type) { // quick check to fill or stroke the drawing
   }
 }
 
-function addAllAngles() {
+function animateStarsAndComets() {
   // Comets
-  greyAngle += 1.5
-  yellowAngle += 2;
-  redAngle += 2.5;
-  blueAngle += 3;
-  darkGreyAngle += 1.5;
+  greyAngle += 1.5*cometSpeedMulti;
+  yellowAngle += 2*cometSpeedMulti;
+  redAngle += 2.5*cometSpeedMulti;
+  blueAngle += 3*cometSpeedMulti;
+  darkGreyAngle += 1.5*cometSpeedMulti;
   
   // Reset Comet Angles if they go past 360
   greyAngle = greyAngle % 360;
@@ -438,6 +456,55 @@ function speedUpAndSlowDownStar(star) {
     }
   }
 
+  // Incase a bug appears
   console.log(`something went wrong\n greyStarAngle: ${greyStarAngle}\n yellowStarAngle: ${yellowStarAngle}`);
-  return 1; // Default speed
+  
 }
+
+
+
+
+// User Interaction
+
+// Changing Storm Clouds
+let stormy = false;
+let stormyBtn = document.getElementById("stormy-button");
+
+stormyBtn.addEventListener('click', function() {
+  stormy = changeClouds();
+});
+
+function changeClouds() {
+  if(stormy) {
+    return false;
+  } else if (!stormy) {
+    return true;
+  }
+}
+
+// ChangeSpeed function
+function changeSpeed(element) {
+  let input = element.value;
+  if (input > 0) {
+    return input;
+  } else { // values below zero may cause bugs, same as with 0 itself
+    return 1;
+  }
+}
+
+// Changing Thunder Speed
+let boltSpeed = 100;
+let thunderInput = document.getElementById("thunder-speed");
+
+thunderInput.addEventListener('input', function() {
+  boltSpeed = changeSpeed(thunderInput);
+})
+
+// Changing Comet Speed
+let cometSpeedMulti = 1;
+let cometInput = document.getElementById("comet-speed");
+
+cometInput.addEventListener('input', function() {
+  cometSpeedMulti = changeSpeed(cometInput);
+})
+
