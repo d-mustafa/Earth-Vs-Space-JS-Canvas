@@ -1,7 +1,21 @@
 body {
   text-align: center;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #myCanvas {
   border: 2px solid gray;
+}
+
+#stormy-button {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-bottom: 20px;
+}
+
+#thunder-speed::placeholder {
+  text-align: center;
+}
+
+#comet-speed::placeholder {
+  text-align: center;
 }
