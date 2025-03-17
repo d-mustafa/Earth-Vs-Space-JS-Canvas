@@ -1,6 +1,11 @@
+html {
+  height: 100%;
+}
+
 body {
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
+  background-image: linear-gradient(to bottom, white, grey);
 }
 
 #myCanvas {
